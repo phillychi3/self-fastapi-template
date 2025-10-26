@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from jwt import PyJWTError
@@ -13,6 +14,8 @@ from app.core.middleware.exception import (
     jwt_exception_handler,
     validation_exception_handler,
 )
+
+load_dotenv()
 
 
 def create_app() -> FastAPI:

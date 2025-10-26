@@ -2,6 +2,7 @@ import os
 from typing import Generator
 
 from sqlmodel import Session, create_engine
+from app.models import User
 
 dbuser = os.getenv("DB_USER", "postgres")
 dbpass = os.getenv("DB_PASSWORD", "postgres")

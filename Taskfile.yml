@@ -1,0 +1,76 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  install:
+    desc: Install project dependencies using poetry
+    cmds:
+      - poetry install
+
+  migration:generate:
+    desc: Generate a new migration file
+    cmds:
+      - alembic revision -m "{{.name}}"
+    vars:
+      name: '{{.name | default "migration"}}'
+
+  migration:autogenerate:
+    desc: Auto-generate a migration file based on model changes
+    cmds:
+      - alembic revision --autogenerate -m "{{.name}}"
+    vars:
+      name: '{{.name | default "auto_migration"}}'
+
+  migrate:
+    desc: Run all pending migrations
+    cmds:
+      - alembic upgrade head
+
+  rollback:
+    desc: Rollback the last migration
+    cmds:
+      - alembic downgrade -1
+
+  rollback:base:
+    desc: Rollback all migrations to base
+    cmds:
+      - alembic downgrade base
+
+  reset:
+    desc: Reset database (rollback, migrate, and seed)
+    deps:
+      - rollback
+    cmds:
+      - task: migrate
+      - echo "Database reset complete"
+
+  dev:
+    desc: Start development server
+    cmds:
+      - python main.py
+
+  docker:up:
+    desc: Start Docker containers
+    cmds:
+      - docker-compose up -d
+
+  docker:down:
+    desc: Stop Docker containers
+    cmds:
+      - docker-compose down
+
+  docker:build:
+    desc: Build and start Docker containers
+    cmds:
+      - docker-compose up --build -d
+
+  worker:
+    desc: Start Dramatiq worker
+    cmds:
+      - dramatiq worker.tasks

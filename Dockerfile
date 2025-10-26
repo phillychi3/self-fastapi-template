@@ -1,4 +1,4 @@
-FROM python:3.13-bookworm as build
+FROM python:3.13-bookworm AS build
 
 RUN pip install poetry==2.1.4
 
@@ -12,7 +12,7 @@ COPY pyproject.toml poetry.lock ./
 RUN poetry config virtualenvs.create true \
     && poetry install && rm -rf $POETRY_CACHE_DIR
 
-FROM python:3.13-slim-bookworm as runtime
+FROM python:3.13-slim-bookworm AS runtime
 
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
