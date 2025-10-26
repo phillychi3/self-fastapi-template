@@ -1,6 +1,6 @@
 from starlette.middleware.authentication import AuthenticationBackend
 from starlette.requests import HTTPConnection
-from security.jwt import JWT
+from app.core.security.jwtutil import JWT
 from schemas.auth import AuthUserSchema
 
 
