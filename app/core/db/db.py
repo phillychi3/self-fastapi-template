@@ -3,10 +3,12 @@ from typing import Generator
 
 from sqlmodel import Session, create_engine
 
+dbuser = os.getenv("DB_USER", "postgres")
+dbpass = os.getenv("DB_PASSWORD", "postgres")
 dbhost = os.getenv("DB_HOST", "localhost")
 dbport = os.getenv("DB_PORT", "5432")
 dbname = os.getenv("DB_NAME", "fastapi_db")
-postgres_url = f"postgresql://postgres:postgres@{dbhost}:{dbport}/{dbname}"
+postgres_url = f"postgresql://{dbuser}:{dbpass}@{dbhost}:{dbport}/{dbname}"
 engine = create_engine(postgres_url, echo=True)
 
 
