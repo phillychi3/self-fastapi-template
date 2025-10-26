@@ -1,5 +1,6 @@
-import jwt
 import os
+
+import jwt
 
 
 class JWT:

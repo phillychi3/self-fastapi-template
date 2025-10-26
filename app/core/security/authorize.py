@@ -1,9 +1,10 @@
-from jwtutil import JWT
 import datetime
-from pydantic import BaseModel
+from enum import Enum
+
+from app.core.security.jwtutil import JWT
 
 
-class TokenType(str, BaseModel):
+class TokenType(str, Enum):
     ACCESS = "access"
     REFRESH = "refresh"
 

@@ -1,7 +1,9 @@
 from starlette.middleware.authentication import AuthenticationBackend
 from starlette.requests import HTTPConnection
+
+from app.core.security.authorize import TokenType
 from app.core.security.jwtutil import JWT
-from schemas.auth import AuthUserSchema
+from app.schemas.auth import AuthUserSchema
 
 
 class Auth(AuthenticationBackend):
@@ -18,7 +20,10 @@ class Auth(AuthenticationBackend):
             if scheme.lower() != "bearer":
                 return False, AuthUser
             payload = JWT.decode(token)
+            if payload.get("type") != TokenType.ACCESS.value:
+                return False, AuthUser
             AuthUser.id = payload.get("id")
+            AuthUser.is_authenticated = True
             return True, AuthUser
         except Exception:
             return False, AuthUser

@@ -2,9 +2,7 @@
 name = "self-fastapi-template"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "phillychi3",email = "phillychi3@gmail.com"}
-]
+authors = [{ name = "phillychi3", email = "phillychi3@gmail.com" }]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -12,11 +10,36 @@ dependencies = [
     "sqlmodel (>=0.0.27,<0.0.28)",
     "pyjwt (>=2.10.1,<3.0.0)",
     "dramatiq (>=1.18.0,<2.0.0)",
-    "dramatiq[redis] (>=1.18.0,<2.0.0)"
+    "dramatiq[redis] (>=1.18.0,<2.0.0)",
+    "uvicorn (>=0.38)",
+    "passlib[bcrypt] (>=1.7.4,<2.0.0)",
+    "redis (>=6.0.0)",
+    "psycopg2 (>=2.9.11,<3.0.0)",
 ]
-package-mode = false
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
+
+[tool.ruff]
+lint.select = ["E", "F"]
+lint.ignore = ["E501", "F401", "E711", "E712"]
+
+
+lint.fixable = ["A", "B", "C", "D", "E", "F"]
+lint.unfixable = []
+
+
+exclude = [".git", ".ruff_cache", ".venv", "venv"]
+
+line-length = 120
+
+
+lint.dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+
+target-version = "py312"

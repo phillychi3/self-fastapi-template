@@ -1,1 +1,3 @@
-from auth import AuthUserSchema
+from .auth import AuthUserSchema
+
+__all__ = ["AuthUserSchema"]

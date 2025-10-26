@@ -1,6 +1,7 @@
-from sqlmodel import create_engine, Session
-from typing import Generator
 import os
+from typing import Generator
+
+from sqlmodel import Session, create_engine
 
 dbhost = os.getenv("DB_HOST", "localhost")
 dbport = os.getenv("DB_PORT", "5432")

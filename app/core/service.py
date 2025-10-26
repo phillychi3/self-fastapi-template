@@ -1,12 +1,12 @@
-from typing import Generic, Type, TypeVar
-from core.repository import BaseRepository
+from typing import Generic, TypeVar
+
+from app.core.repository import BaseRepository
 
 Model = TypeVar("Model")
 
 
 class BaseService(Generic[Model]):
-    def __init__(self, model: Type[Model], repository: BaseRepository):
-        self.model = model
+    def __init__(self, repository: BaseRepository):
         self.repository = repository
 
     def create(self, obj: Model) -> Model:
