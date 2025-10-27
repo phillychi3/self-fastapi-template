@@ -2,8 +2,8 @@ from fastapi import Depends
 from sqlmodel import Session
 
 from app.core.db import get_db
-from app.repositories import UserRepository
-from app.services import LoginService, UserService
+from app.repositories import UserRepository, RoleRepository
+from app.services import LoginService, UserService, RoleService
 
 
 class Factory:
@@ -18,3 +18,9 @@ class Factory:
         user_repository = UserRepository(db_session=db)
         auth_service = LoginService(repository=user_repository)
         return auth_service
+
+    @staticmethod
+    def get_role_service(db: Session = Depends(get_db)) -> RoleService:
+        role_repository = RoleRepository(db_session=db)
+        role_service = RoleService(repository=role_repository)
+        return role_service
